@@ -9,6 +9,9 @@ export default function App() {
 
   /*------ Eksik state'leri aşağıya ekleyin----------------------------*/
 
+  const [cursorInButton,setCursorInButton] = useState(false)
+  const [buttonHeldDown,setButtonHeldDown] = useState(false)
+
   /*------Yukarıdaya eksik state'leri ekleyin----------------------------*/
 
   const buttonClass = !timeCount ? 'outsideButton' : undefined
@@ -49,11 +52,28 @@ export default function App() {
   }
 
   /*------Aşağıya olay işleyicilerini ekleyin----------------------------*/
+
+  const handleCursorInButton = () => {
+    setCursorInButton(true)
+  }
+
+  const handleCursorOutButton = () => {
+    setCursorInButton(false)
+  }
+
+  const handleClickDownInButton = () => {
+    setButtonHeldDown(true)
+  }
+
+  const handleClickUpInButton = () => {
+    setButtonHeldDown(false)
+  }
+
   return (
     <div className='wrapper'>
       <Header time={+timeToDisplay} />
       <Thermometer time={+timeToDisplay} />
-      <button className={buttonClass}>Basılı Tut</button>
+      <button onMouseDown={handleClickDownInButton} onMouseUp={handleClickUpInButton} onMouseEnter={handleCursorInButton} onMouseLeave={handleCursorOutButton} className={buttonClass}>Basılı Tut</button>
       <p className='time'>{timeToDisplay} saniye </p>
     </div>
   )
