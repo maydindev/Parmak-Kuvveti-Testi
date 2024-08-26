@@ -52,7 +52,7 @@ export default function App() {
   }
 
   /*------Aşağıya olay işleyicilerini ekleyin----------------------------*/
-
+  /*
   const handleCursorInButton = () => {
     setCursorInButton(true)
   }
@@ -68,12 +68,29 @@ export default function App() {
   const handleClickUpInButton = () => {
     setButtonHeldDown(false)
   }
+  */
+
+  const handleButtonInteraction = (type) => {
+    if(type === "enter") setCursorInButton(true)
+    if(type === "leave") setCursorInButton(false)
+    if(type === "down") setButtonHeldDown(true)
+    if(type === "up") setButtonHeldDown(false)
+  }
 
   return (
     <div className='wrapper'>
       <Header time={+timeToDisplay} />
       <Thermometer time={+timeToDisplay} />
-      <button onMouseDown={handleClickDownInButton} onMouseUp={handleClickUpInButton} onMouseEnter={handleCursorInButton} onMouseLeave={handleCursorOutButton} className={buttonClass}>Basılı Tut</button>
+      <button 
+        /*onMouseDown={handleClickDownInButton} 
+        onMouseUp={handleClickUpInButton} 
+        onMouseEnter={handleCursorInButton} 
+        onMouseLeave={handleCursorOutButton}*/ 
+        onMouseDown={() => handleButtonInteraction("down")} 
+        onMouseUp={() => handleButtonInteraction("up")} 
+        onMouseEnter={() => handleButtonInteraction("enter")} 
+        onMouseLeave={() => handleButtonInteraction("leave")}
+        className={buttonClass}>Basılı Tut</button>
       <p className='time'>{timeToDisplay} saniye </p>
     </div>
   )
